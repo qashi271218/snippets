@@ -1,0 +1,122 @@
+<h4><b>Feature List</b></h4>
+@php
+$referral_form=DB::table('dynamic_forms')->first();
+$data=json_decode($referral_form->value);
+@endphp
+@if(isset($record->slug))
+@php
+$existing=DB::table('auction_feature_lists')->where('auction_id',$record->id)->first();
+$auction_feature_list=json_decode($existing->value);
+@endphp
+@endif
+<div>
+    <div class="row">
+            @if($data)
+            <div id="form">
+            @foreach($data as $key=>$row)
+            @if($row->type=="text")
+            @php
+            $name=str_replace(' ','_',$row->label);
+            @endphp
+            <div class="col-md-12" style="width: 51%;">
+            <div class="form-group">
+            <input type="hidden" name="type[]" value="text">
+            <input type="hidden" name="name[]" value="{{$row->label}}">
+            <label class="col-from-label text-capitalize">{{$row->label}}</label>
+            @if(isset($record->slug))
+            @foreach($auction_feature_list as $list)
+            @if($list->name==$row->label)
+            <input class="form-control" type="{{$row->type}}" name="value[]" value="{{$list->value}}">
+            @endif
+            @endforeach
+            @else
+            <input class="form-control" type="{{$row->type}}" name="value[]" placeholder="Enter {{$row->label}}" autocomplete="off" @if($row->required=='yes') required @endif>
+            @endif
+            </div>
+            </div>
+            @elseif($row->type=="email")
+            @php
+            $name=str_replace(' ','_',$row->label);
+            @endphp
+            <div class="col-md-12" style="width: 51%;">
+            <div class="form-group">
+            <input type="hidden" name="type[]" value="{{$row->type}}">
+            <input type="hidden" name="name[]" value="{{$row->label}}">
+            <label class="col-from-label text-capitalize">{{$row->label}}</label>
+            <input class="form-control" type="{{$row->type}}" id="email" name="value[]" value="@if(isset($record->slug)) @foreach($auction_feature_list as $list) @if($list->name==$row->label){{$list->value}}@endif @endforeach @endif" placeholder="Enter {{$row->label}}" autocomplete="off" @if($row->required=='yes') required @endif>
+            </div>
+            </div>
+            @elseif($row->type=="number")
+            @php
+            $name=str_replace(' ','_',$row->label);
+            @endphp
+            <div class="col-md-12" style="width: 51%;">
+            <div class="form-group">
+            <input type="hidden" name="type[]" value="{{$row->type}}">
+            <input type="hidden" name="name[]" value="{{$row->label}}">
+            <label class="col-from-label text-capitalize">{{$row->label}}</label>
+            <input class="form-control" type="text" pattern="[0-9 ]+" name="value[]" value="@if(isset($record->slug))@foreach($auction_feature_list as $list)@if($list->name==$row->label){{$list->value}}@endif @endforeach @endif" placeholder="Enter {{$row->label}}" autocomplete="off" @if($row->required=='yes') required @endif>
+            </div>
+            </div>
+            @elseif($row->type=="select")
+            @php
+            $name=str_replace(' ','_',$row->label);
+            @endphp
+            <div class="col-md-12 {{$name}}" style="width: 51%;">
+            <div class="form-group">
+                <input type="hidden" name="type[]" value="select">
+                <input type="hidden" name="name[]" value="{{$row->label}}">
+            <label class="col-from-label text-capitalize">{{$row->label}}</label>
+            <select class="form-control select2" style="width: 100%;" name="value[]" @if($row->required=='yes') required @endif>
+                    <option value="" disabled selected>Select {{$row->label}}</option>
+                    @php
+                    $options=json_decode($row->options);
+                    @endphp
+                    @foreach($options as $option)
+                    <option value="{{$option}}" @if(isset($record->slug)) @foreach($auction_feature_list as $list) @if($list->name==$row->label && $list->value==$option) selected @endif @endforeach @endif>{{$option}}</option>
+                    @endforeach
+                  </select>
+            </div>
+            </div>
+            @elseif($row->type=="radio")
+            <div class="col-md-12" style="width: 51%;">
+            <div class="form-group">
+                   <input type="hidden" name="type[]" value="radio">
+                <input type="hidden" name="name[]" value="{{$row->label}}">
+                 @php
+                    $radios=json_decode($row->options);
+                    $name=str_replace(' ','_',$row->label);
+                    @endphp
+                    <label class="col-from-label text-capitalize">{{$row->label}}</label>
+                    <div class="form-group text-capitalize form-control" style="padding:2px 12px!important;">
+                        @foreach($radios as $radio)
+                        <div class="col-md-6">
+                            <input id="{{$radio}}{{$key}}" name="value[]{{$key}}" type="radio" value="{{$radio}}" @if(isset($record->slug)) @foreach($auction_feature_list as $list) @if($list->name==$row->label && $list->value==$radio) checked @endif @endforeach @endif>
+                            <label for="{{$radio}}{{$key}}"> <span class="fa-stack radio-button"> <i class="mdi mdi-check active {{$radio}}{{$key}}"></i> </span> {{$radio}}</label> 
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                </div>
+            @elseif($row->type=="file")
+            @php
+            $name=str_replace(' ','_',$row->label);
+            @endphp
+            <div class="col-md-6">
+            <div class="form-group">
+                <input type="hidden" name="type[]" value="file">
+                <input type="hidden" name="name[]" value="{{$row->label}}">
+            <label class="col-from-label">{{$row->label}}</label>
+            <div class="input-group">
+                      <div class="custom-file">
+                        <input type="{{$row->type}}" class="custom-file-input" id="exampleInputFile" name="value[]" @if($row->required=='yes') required @endif>
+                      </div>
+                    </div>
+            </div>
+            </div>
+            @endif
+            @endforeach
+            </div>
+            @endif
+        </div>
+</div>

@@ -1,0 +1,68 @@
+---------------------------------------------------------------------------------------------------------------
+Artisan Command
+---------------------------------------------------------------------------------------------------------------
+php artisan make:rule Recaptcha
+---------------------------------------------------------------------------------------------------------------
+Controller
+---------------------------------------------------------------------------------------------------------------
+<?php
+namespace App\Rules;
+use Illuminate\Contracts\Validation\Rule;
+class Recaptcha implements Rule
+{
+public function __construct()
+{
+
+}
+public function passes($attribute, $value)
+{
+$data = array(
+'secret'   => env('GOOGLE_RECAPTCHA_SECRET'),
+'response' => $value
+);
+try {
+$verify = curl_init();
+curl_setopt($verify, CURLOPT_URL, "https://www.google.com/recaptcha/api/siteverify");
+curl_setopt($verify, CURLOPT_POST, true);
+curl_setopt($verify, CURLOPT_POSTFIELDS, http_build_query($data));
+curl_setopt($verify, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($verify, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($verify);
+return json_decode($response)->success;
+} catch (\Exception $e) {
+return false;
+}
+}
+public function message()
+{
+return 'ReCaptcha verification failed.';
+}
+}
+---------------------------------------------------------------------------------------------------------------
+ENV file
+---------------------------------------------------------------------------------------------------------------
+GOOGLE_RECAPTCHA_KEY=6LeIxAcTAABBAAJcZVRqyHhEQ#EGDW_MXjiZKhI
+GOOGLE_RECAPTCHA_SECRET=6LeIxAD$@#AAAGG-vFI1TnRWxMZNFD#$jJifJWe
+---------------------------------------------------------------------------------------------------------------
+Put in form
+---------------------------------------------------------------------------------------------------------------
+<form method="POST" action="{{url('/contact')}}">
+        @csrf
+        <label>Name</label>
+        <input name="name">
+        <label>E-mail</label>
+        <input name="email">
+        <label>Message</label>
+        <input name="message">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <div class="g-recaptcha" id="feedback-recaptcha" data-sitekey="{{ env('GOOGLE_RECAPTCHA_KEY')  }}"></div>
+</form>
+---------------------------------------------------------------------------------------------------------------
+Validation
+---------------------------------------------------------------------------------------------------------------
+public function postContactForm(Request $request){
+$this->validate($request, [
+'g-recaptcha-response' => ['required', new Recaptcha()]
+]);
+// Recaptcha passed, do what ever you need
+}

@@ -1,0 +1,652 @@
+test1234-$2y$10$sU3zA5ZQp0pTGLUQp7fpEeavnDIfBMsed9TdehRgIW1YcR7WHu8V2
+
+To get rid of not picking css from public folder run : php artisan view:clear
+
+<a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
+    Logout
+</a>    
+<form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
+    {{ csrf_field() }}
+</form>
+
+CREATE TABLE new_table LIKE old_table;
+UPDATE products
+SET country_id = 99
+WHERE country_id IS NULL
+'title'=>'unique:pages,title,'.$id,
+'slug'=>'unique:pages,slug,'.$id,
+DB::table('course_enrolleds')->where('group_id',$request->group_id)->select('user_id')->distinct()->get();
+$input['slug']=$url=str_replace(array(':', '/', '.',' ', '*'), '-', $request->slug);
+
+Route::group(['prefix' => 'online/test/series','as'=>'online.test.series.', 'middleware' => ['auth']], function () {
+---------------------------------------------------------------------------
+{{ strip_tags( $value->description ) }}
+{!!$value->description!!}
+$blog=DB::table('blog_banner')->first();
+        $input = request()->except(['_token']);
+        if ($file = $request->file('image')) {
+        unlink(public_path('blog_images/images/'). $blog->image);
+        $name = time().'.'.$file->extension();
+        $file->move(public_path().'/blog_images/images/', $name);
+        $input['image'] = $name;
+        }
+|--------------------------------------------------------------------------
+|DB Query
+1.$totalpreferred=DB::table('rooms')->where('user_id',Auth::user()->id)->whereNotNull('preferred')->count();
+$permissions = DB::table('laravel_permission')->distinct()->select('feature')->groupBy('feature')->get();
+2.$categories=DB::table('categories')->where('created_at', '>=',\Carbon\Carbon::now()->subMinutes(20))->count();
+3.$product->product_code =substr($product->name, 0, 2).'-'.mt_rand(1000000, 9999999);
+4.{{isset($row['email']) ? $row['email'] : '$row['email']'}}
+5.limit words <p class=>{{ Illuminate\Support\Str::limit($location-description, 20) }}</p>
+6.{{str_replace(' ', '_', $info->label)}}
+7. str_replace(array(':', '\\', '/', '*'), ' ', $string);
+8.<?php echo url_title(trim($row['slug']), 'dash', true)?>  
+9.$sellerproduct=DB::table('products')->where('created_at', '>=', \Carbon\Carbon::now()->subHour())->count();
+
+10.$time=DB::table('reservation')->where('id',$result->id)->where('checkout', '<', \Carbon\Carbon::now()->subDays(120))->first();
+
+use Carbon\Carbon;
+dd(Carbon::createFromFormat('d-m-Y', $request->message_checkin)->format('Y-m-d'));
+
+ @php
+$createdAt = \Carbon\Carbon::parse($result->checkin)->addDays(2);
+$checkin= $createdAt->format('Y-m-d');
+$from = \Carbon\Carbon::createFromFormat('Y-m-d',$ticket->event_on);
+                $today=date('Y-m-d');
+                $diff_in_days = $from->diffInDays($today);            
+@endphp
+<h1>{{$checkin}}</h1>
+11.<input type="radio" name="radio-button" onclick='window.location.assign("{{route('home')}}")'/><span>Available</span>
+12.Route::fallback(function () {
+
+    return view("errors/404");
+	});
+13.<option value="{{$row->display_name}}" <?php if($row->display_name == $cityselected->preferred) echo "selected"; ?>>{{$row->display_name}}</option>	
+14.onclick="return confirm('Are ou sure?')"
+15.<select name="forma" onchange="location = this.value;">
+ <option value="Home.php">Home</option>
+ <option value="Contact.php">Contact</option>
+ <option value="Sitemap.php">Sitemap</option>
+</select>
+16.<div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+17.<div class="carousel-item {{$key == 0 ? 'active' : '' }}">
+18.$input = request()->except(['_token']);
+19.<h1>{{url()->current()}}</h1>
+20-Request::is('it-services')
+21-Request::path()
+22-{{route('quiz.question',[$quiz->id])}}
+23-object-fit: initial;
+  width: 100%;
+  height: 81vh;
+|--------------------------------------------------------------------------
+|--------------------------------------------------------------------------
+| SSL activation
+|--------------------------------------------------------------------------
+RewriteEngine On RewriteCond %{HTTPS} !on RewriteRule ^.*$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+|--------------------------------------------------------------------------
+| .htaccess for subfolder
+|--------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
+
+    RewriteEngine On
+
+    # Redirect Trailing Slashes...
+    RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+
+</IfModule>
+|--------------------------------------------------------------------------
+| Mail configuration
+|--------------------------------------------------------------------------
+MAIL_MAILER=sendmail
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=587
+MAIL_USERNAME=93bb136c3f78fc
+MAIL_PASSWORD=b598bd1338313d
+MAIL_ENCRYPTION=tls
+MAIL_FROM_NAME="${APP_NAME}"
+|--------------------------------------------------------------------------
+| https .htaccess for laravel
+|--------------------------------------------------------------------------
+RewriteEngine On
+for https://
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+for www.
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [R=301,L]
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+
+    # # Handle Authorization Header
+    # RewriteCond %{HTTP:Authorization} .
+    # RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ $final=number_format((floatval($product->mrp_price-$product->unit_price)/floatval($product->mrp_price))*100,2);
+ number_format((float)($item->amount), 5)			
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+@if($product->thumbnail_img!=NULL)
+                                            <a href="{{ route('product', $product->slug) }}" class="d-block product-image h-100">
+                                                <img class="img-fit lazyload mx-auto" src="{{ my_asset('frontend/images/placeholder.jpg') }}" data-src="{{ my_asset($product->thumbnail_img) }}" alt="{{ __($product->name) }}">
+                                            </a>
+                                            @else
+                                            @php $images = json_decode($product->photos,true); @endphp
+                                     @if(is_array($images) && !empty($images))
+<img class="img-fit lazyload mx-auto" src="{{ my_asset('frontend/images/placeholder.jpg') }}" data-src="{{asset('public/'.$images[0])}}" alt="{{ __($product->name) }}">
+                                                                         @else
+                                     @endif
+                                            @endif
+											
+$size = $request->size;
+        $color = $request->color;
+        $price = $request->price;
+        $image = $request->image;
+      for($count = 0; $count < count($size); $count++)
+      {
+       $data = array();
+        $data['product_id'] = $id;
+        $data['size'] = $size[$count];
+        $data['color'] = $color[$count];
+        $data['price'] = $price[$count];
+           $name = hexdec(uniqid()).'.'.$image[$count]->getClientOriginalName();
+           Image::make($image[$count]->getRealPath())->resize(250, 300)->save('public/images/sku/' . $name);
+      $data['image'] = $name; 
+       $insert_data[] = $data; 
+      }
+      $sku_delete=DB::table('skus')->where('product_id',$id)->delete();
+      Sku::insert($insert_data);
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+spartanMultiImagePicker
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+$photos = array();
+
+        if($request->hasFile('photos')){
+            foreach ($request->photos as $key => $photo) {
+                $path = $photo->store('uploads/products/photos');
+                array_push($photos, $path);
+                //ImageOptimizer::optimize(base_path('public/').$path);
+            }
+            $product->photos = json_encode($photos);
+        }					
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+<script>
+    $('.row').on('input','.prc',function(){
+        var mrp=$("#mrp").val();
+        var selling=$("#selling").val();
+        var totalSum=0;
+        $('.row .prc').each(function()
+        {
+            var inputVal=$(this).val();
+            if($.isNumeric(inputVal))
+            {
+                totalSum=((mrp-selling)/mrp*100).toFixed(2);
+            }
+        });
+        $('#totaldiscount').val(totalSum,2);
+    });
+</script>	
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+var minLength = 6;
+var maxLength =6;
+$(document).ready(function(){
+    $('#chkPincode').on('keydown keyup change', function(){
+        var char = $(this).val();
+        var charLength = $(this).val().length;
+        if(charLength < minLength){
+            $(".check_availability").css("visibility", "hidden"); 
+        }else if(charLength > maxLength){
+            $(".check_availability").css("visibility", "hidden"); 
+            $(this).val(char.substring(0, maxLength));
+        }else{
+            $(".check_availability").css("visibility", "visible"); 
+            }
+    });
+});
+	
+------------------------------------------------------------------------------------------------------------------------------------------------------------	
+<script>
+$(document).ready(function(){
+        $('#result').on('click', function(){
+            var arrText= new Array();
+$('input[type=number]:last').each(function(){
+    arrText.push($(this).val());
+})
+if(arrText>200)
+{
+}
+else
+{
+  alert('for grocery you hve to add minimum 500 rupees product to avoid shipping cost'); 
+}
+        });
+});
+
+</script>
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+if($file = $request->file('thumbnail_img')) {
+            $name = $file->getClientOriginalName();
+            Image::make($file->getRealPath())->insert(public_path('images/logo.png'), 'bottom-left', 10, 10)->save('public/uploads/products/thumbnail/' . $name);
+            $product->thumbnail_img =('uploads/products/thumbnail/' . $name);
+        }
+		
+ if ($image = $request->file('banner')) {
+            if(isset($product_category->banner))
+            {
+            unlink(public_path() ."/images/banner/" .$product_category->banner);
+            }
+          $name = hexdec(uniqid()).'.'.$image->extension();
+          Image::make($image->getRealPath())->resize(1920, 300)->save('public/images/banner/' . $name);
+            $input['banner']=$name;
+        }		
+------------------------------------------------------------------------------------------------------------------------
+<script>
+// jQuery(document).on('click', '.wc-tabs li a', function(){ 
+// //jQuery('.myfixed li a').click(function() {
+    
+// 	var scrllme=jQuery(this).attr("href");
+//     jQuery('html, body').animate({
+//         scrollTop: jQuery(scrllme).offset().top-50
+//     }, 2000);
+//     return false;
+
+  
+// });
+
+	
+	
+	</script>
+<script>
+	
+
+
+jQuery(window).scroll(function() {
+    var windscroll = jQuery(window).scrollTop();
+    if (windscroll >= 100) {
+        jQuery('.woocommerce-Tabs-panel').each(function(i) {
+            if (jQuery(this).position().top <= windscroll - 100) {
+                jQuery('#mysticky-nav .wc-tabs li a.activee').removeClass('activee');
+				jQuery('#mysticky-nav .wc-tabs li.active').removeClass('activee');
+                jQuery('#mysticky-nav .wc-tabs li a').eq(i).addClass('activee');
+            }
+        });
+
+    } 
+
+}).scroll();
+</script>
+	<style>
+		.activee
+		{
+			color:#fb641b!important;
+			font-weight:bold!important;
+			border-bottom:4px solid #ff9f00!important
+		}
+		.sticky
+		{
+			position:fixed!important;
+			top:0!important;
+    z-index: 9999;
+    background-color: yellow;
+    width: 100%!important;
+    margin-left: 0!important;
+		}
+		.notsticky
+		{
+			position:relative!important;
+		}
+	@media (min-width: 780px) {
+	    #mysticky-nav {
+	        height:40px;
+	    }
+	}
+	</style>
+<script>
+	jQuery(document).ready(function() {
+		var top = (jQuery('#rtn-deals header h2.h1').offset()|| { "top": NaN }).top - 240;
+  jQuery(window).scroll(function() {
+var windowTop = jQuery(window).scrollTop();
+    if (top < windowTop) {
+      jQuery('#rtn-deals header h2.h1').addClass('sticky');
+		jQuery('#masthead').hide();
+    } else {
+				jQuery('#masthead').show();
+      jQuery('#rtn-deals header h2.h1').removeClass('sticky');
+    }
+  });
+});
+</script>
+<?php
+/**
+ * Header for our theme
+ */
+
+electro_get_footer();?>
+------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------
+wordpress in laravel
+# BEGIN WordPress
+# The directives (lines) between "BEGIN WordPress" and "END WordPress" are
+# dynamically generated, and should only be modified via WordPress filters.
+# Any changes to the directives between these markers will be overwritten.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase /blog/
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /blog/index.php [L]
+</IfModule>
+# END WordPress
+-----------------------------------------------------------------------------------------------------------------------
+$user_to=DB::table('rooms')->where('name',$request->property_to_exchange)->select('user_id')->groupBy('user_id')->get();
+        $room=DB::table('rooms')->where('name',$request->property_to_exchange)->select('id')->groupBy('id')->get();
+    foreach($user_to as $row)
+    { 
+        //user_to
+        $user_to_id=$row->user_id;
+    }
+    foreach($room as $row)
+    { 
+        //room_id
+        $room_id=$row->id;
+    }
+    $fdate = $request->message_checkin;
+$tdate = $request->message_checkout;
+$datetime1 = new DateTime($fdate);
+$datetime2 = new DateTime($tdate);
+$interval = $datetime1->diff($datetime2);
+$days=$interval->format('%a');//now do whatever you like with $days
+    //list_type custom value Rooms
+    //checkin and checkout
+        $check_in=Carbon::createFromFormat('d-m-Y', $request->message_checkin)->format('Y-m-d');
+        $check_out=Carbon::createFromFormat('d-m-Y', $request->message_checkout)->format('Y-m-d');
+        $reservation=new Reservation;
+        $reservation->code=mt_rand(100000,999999);
+-----------------------------------------------------------------------------------------------------------------------
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function(){
+        $('#exchangeable_listings').change(function() {
+        if($(this).is(":checked")) {
+$('#apply').click(function(){
+              window.open("https://stay242.com/s?current_refinement=Homes&min_price=1&max_price=750&room_type=&property_type=&amenities=&checkin=&checkout=&guests=1&beds=0&bathrooms=0&bedrooms=0&page=1&instant_book=0&exchange=1&php_date_format=m/d/Y");
+       }); 
+       }
+        else
+        {
+            console.log('bye');
+        }
+        });
+    });
+</script>
+ ----------------------------------------------------------------------------------------------------------------------------------------------------
+ if ($image = $request->file('brand_logo')) {
+ $name = time() . '.' . $image->extension();
+           Image::make($file->getRealPath())->resize(1499, 256)->save('banner/images/' . $name);
+            $file->move('images', $name);
+            $input['brand_logo'] = $name;
+        }
+------------------------------------------------------------------------------------------------------------------------------------------------------
+if($file = $request->file('thumbnail_img')) {
+            $name = $file->getClientOriginalName();
+            Image::make($file->getRealPath())->insert(public_path('images/logo1.png'), 'bottom-left', 10, 10)->save('public/uploads/products/thumbnail/' . $name);
+            $product->thumbnail_img =('uploads/products/thumbnail/' . $name);
+        }		
+-------------------------------------------------------------------------------------------------------------------------------------------------------		
+              <a class="nav-link ifr" href="https://docs.google.com/forms/d/1TcIbLf7WtLfyNmFfBbmyQo8rM_be8uLa4PjcUAJWlBU/edit" target="someFrame">SURVEY</a>
+			  <section>
+          <iframe name="someFrame" class="someFrame" style="width: 100%;
+    height: 90vh;
+    display: block;
+    position: absolute;
+    z-index: 11;"></iframe>
+</section>
+<script>
+      $(".someFrame").css('display','none');
+  $(document).ready(function(){
+    $(".ifr").click(function(e) {
+        e.preventDefault();
+        $(".someFrame").css('display','block');
+        $(".someFrame").attr("src", $(this).attr("href"));
+    })
+});
+
+      </script>
+----------------------------------------------------------------------------------------------------------------------------------------------------------	
+DB::table('calendar')->insert([
+    ['room_id' => $request->room_id, 'date' =>date('Y-m-d', strtotime($request->checkin)),'price'=>$request->amount,'spots_booked'=>'0','source'=>'sync','is_shared'=>'No','status'=>'Not available'],
+    ['room_id' => $request->room_id, 'date' =>date('Y-m-d', strtotime($request->checkout)),'price'=>$request->amount,'spots_booked'=>'0','source'=>'sync','is_shared'=>'No','status'=>'Not available']
+]);  
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+               Swal.fire({
+  title: 'Do you want to proceed the transaction',
+  showCancelButton: true,
+  confirmButtonText: `Proceed`,
+}).then((result) => {
+  /* Read more about isConfirmed, isDenied below */
+  if (result.isConfirmed) {
+                  $('#loadingmessage').show();
+      $.ajax({
+                         headers: {
+                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                         },
+                         url: "{{ route('add-card') }}",
+                         type: "POST",
+                         data: {nonce,amount},
+                         success: function(data){
+                             alert('data', data);
+                         },
+                         error: function (xhr, status, error) {
+                             $('#loadingmessage').hide();
+                             Swal.fire('Transaction successfully completed!', '', 'success')
+                             location.replace('https://www.ebahamas.com/');
+                         }
+                     });
+  } else if (result.isDenied) {
+    Swal.fire('Changes are not saved', '', 'info')
+  }
+})
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+<script>
+    $(document).ready(function(e) {
+        $('select[name="preferred"]').on('change', function() {
+            $('#loadingmessage').show();
+                var preferred = $(this).val();
+                $.ajax({
+                    type:'get',
+                    url: '{{route('all.subcategory')}}',
+                    data:{preferred:preferred},
+                    success:function(data) {
+                        $('#result').html(data);
+                        $('#loadingmessage').hide();
+                        }
+                });
+        });
+});
+</script>
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+<script>
+    $(document).ready(function(e) {
+        var id=$('#hidden').val();
+        $('select[name="preferred"]').on('change', function() {
+                var preferred = $(this).val();
+                $.ajax({
+                    type:'get',
+                    url: '/preferred/location/'+id,
+                    data:{preferred:preferred},
+                    success:function(data) {
+                        console.log(data);
+                        }
+                });
+        });
+});
+</script>
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+<script>
+    $(document).ready(function(){
+        $("#basics-select-exchange").prop("checked", true);
+        $('#preferredlocation').show();
+        $('.exchangep').click(function() {
+    $('#preferredlocation').show();
+        });
+        $('.exchangeq').click(function() {
+    $('#preferredlocation').hide();
+    var id=$('#hidden').val();
+    $.ajax({
+                    type:'get',
+                    url: '/preferred/location/null/'+id,
+                    success:function(data) {
+                        console.log(data);
+                        }
+                });
+        });
+    });
+</script>
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+<select name="order_status" data-id="{{$row->id}}">
+					   <option value="shipped" {{($row->status=='shipped')?'selected':''}}>Shipped</option>
+					   <option value="processing" {{($row->status=='processing')?'selected':''}}>Processing</option> 
+					   <option vlaue="delieverd" {{($row->status=='delieverd')?'selected':''}}>Delieverd</option>
+					</select>
+					
+					$(this).data('id');
+					    url: '{{ route('order.status.update',"id")}}',
+						
+						img_url = 'https://bozzevents.com/public/images/sku/';
+    $('.mainimage').prop('src', img_url+data);
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+						<script>
+$(document).ready(function(){
+        $('#result').on('click', function(){
+            var arrText= new Array();
+            var arrTexttwo= new Array();
+$('input[type=number]:last').each(function(){
+    arrText.push($(this).val());
+    var arrTexttwo= new Array();
+})
+$('input[type=password]:last').each(function(){
+    var arrTexttwo= new Array();
+})
+if(arrText>500)
+{
+}
+else
+{
+        alert('minimum 500 amount of grocery items to avoid 40 rupees shipping cost');
+
+}
+        });
+});
+
+</script>
+--------------------------------------------------------------
+<script>
+    $(document).ready(function() {
+        $('#telephone_number').on('keyup',function() {
+            var hasSpace = $('#telephone_number').val().indexOf('-')>=0;
+            if(hasSpace || isNaN($('#telephone_number').val())) {
+                $('#number_error').show();
+                $('#number_error').text('Please enter numbers only.Special characters and spaces are not allowed');
+            }
+            else{
+                $('#number_error').hide();
+            }
+        });
+    });
+</script>
+--------------------------------------------------------------
+<script>
+    $(document).ready(function(e) {
+        $('select[name="size"]').on('change', function() {
+                var id=$(this).data('id');
+                var sku=$(this).val();
+                $('select[name="color"]').on('change', function() {
+                    var color=$(this).val();
+                $.ajax({
+                    type:'get',
+                    url: '{{ route('check.sku.price',"id")}}',
+                    data:{id,sku,color},
+                    success:function(data) {
+                        $('#rsult').val(data);
+                        }
+                });
+        });
+        });
+});
+</script>
+-----------------------------------------------------------------------
+<script>
+    $('.form-group').on('input','.prc',function(){
+        var total=$("#prime").val();
+        totalSum=0;
+        $('.form-group .prc').each(function()
+        {
+            var inputVal=$(this).val();
+            if($.isNumeric(inputVal))
+            {
+                totalSum=total*parseFloat(inputVal)/100;
+            }
+        });
+        $('#result').text(totalSum);
+    });
+</script>
+
+<script>
+        function googleTranslateElementInit() {
+          new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'ar,en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, multilanguagePage: true, autoDisplay: false }, 'google_translate_element');
+            $('.goog-te-menu-value').on('DOMSubtreeModified', 'span', function(){
+                   language = $(".goog-te-menu-value span").html();
+
+                    if (language == "Arabic"){
+                        $('#theContent').css('direction', 'rtl');
+                    }
+                    else{
+                        $('#theContent').css('direction', 'ltr');
+                    };
+                });
+        };
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <?php
+            setcookie('googtrans', '/en/ko');
+        ?>
+
+
+
+        <script>
+    jQuery(function() {
+    setTimeout(function() {
+        jQuery("#pum-2269").hide(), 9000});
+});
+</script>
+<script>
+jQuery(function() {
+    setTimeout(function() {
+    jQuery("#pum-1066").show(),10000});
+});
+</script>
