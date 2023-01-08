@@ -1,0 +1,54 @@
+------------------------------------------------------------------------------------------------------
+CDN
+-------------------------------------------------------------------------------------------------------
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+------------------------------------------------------------------------------------------------------
+Styling
+-------------------------------------------------------------------------------------------------------
+.no-js .owl-carousel, .owl-carousel.owl-loaded {
+    display:flex!important;
+}
+button.owl-next {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    right: 5%;
+}
+button.owl-prev {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    left: 5%;
+}
+button.owl-next span,button.owl-prev span {
+    font-size:80px;
+    color:white;
+}
+
+------------------------------------------------------------------------------------------------------
+JS
+-------------------------------------------------------------------------------------------------------
+$('.banner-carousel').owlCarousel({
+    loop:true,
+    margin:10,
+    nav:true,
+    dots:true,
+    responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:1
+        },
+        1000:{
+            items:1
+        }
+    }
+});

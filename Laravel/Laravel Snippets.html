@@ -26,7 +26,7 @@ $blog=DB::table('blog_banner')->first();
         $input = request()->except(['_token']);
         if ($file = $request->file('image')) {
         unlink(public_path('blog_images/images/'). $blog->image);
-        $name = time().'.'.$file->extension();
+        $name = time().hexdec(uniqid()).'.'.$file->getClientOriginalName();
         $file->move(public_path().'/blog_images/images/', $name);
         $input['image'] = $name;
         }
@@ -78,6 +78,9 @@ $from = \Carbon\Carbon::createFromFormat('Y-m-d',$ticket->event_on);
 23-object-fit: initial;
   width: 100%;
   height: 81vh;
+
+          'logo' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
+
 |--------------------------------------------------------------------------
 |--------------------------------------------------------------------------
 | SSL activation
