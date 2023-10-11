@@ -1,0 +1,21 @@
+1. touch Procfile
+2. git init
+3. git add .
+4. git commit -m "initial release "
+5. heroku create
+6. git push heroku master
+
+for database connection
+go to resources > add-ons > search post > heroku postgres > continue
+7. heroku pg:credentials:url
+8. heroku run php artisan migrate
+
+for env credentials
+go to app in heroku settings > reveal config vars
+
+
+for any changes to heroku
+git status
+git add .
+git commit -m "anything"
+git push heroku master

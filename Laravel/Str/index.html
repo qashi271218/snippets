@@ -1,0 +1,27 @@
+1. limit words <p class=>{{ Illuminate\Support\Str::limit($location-description, 20) }}</p>
+
+2. {{str_replace(' ', '_', $info->label)}}
+
+3. str_replace(array(':', '/', '.',' ', '*'), '-', $request->slug)
+
+4. <?php echo url_title(trim($row['slug']), 'dash', true)?>
+
+5. {{ strip_tags( $value->description ) }}
+
+6. {!!$value->description!!}
+
+7. if (strpos($string2, 'http') === 0) {}
+
+8. php check if first four characters of a string = http
+   substr( $http, 0, 4 ) === "http";
+
+9. php check if first five characters of a string = https
+   substr( $https, 0, 5 ) === "https";
+
+10. {"en":"english","es":""}
+    $text = explode(',', $sub->name);
+    $result=explode(':',$text[0]);
+    $name=str_replace('"', '', $result[1]);
+
+11. substr($url, strrpos($url, '/') + 1);
+    $first = explode(":", $auction->live_auction_start_time)[0];

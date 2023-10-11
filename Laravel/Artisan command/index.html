@@ -1,0 +1,8 @@
+1. To get rid of not picking css from public folder run : php artisan view:clear
+
+2. protected function schedule(Schedule $schedule)
+{
+$schedule->call('App\Http\Controllers\Company\CompanyOwnerController@updateStaffDetailsToUsersTable')->everyMinute();
+}
+/usr/local/bin/php /home/hwin/public_html/user/artisan schedule:run 1>> /dev/null 2>&1
+/usr/local/bin/php /home/billada/public_html/artisan schedule:run 1>> /dev/null 2>&1

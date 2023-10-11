@@ -1,0 +1,43 @@
+------------------------------------------------------------------------------------------------------
+Backend CRUD Message
+-------------------------------------------------------------------------------------------------------
+$notification = array(
+'messege' => 'post category updated successfully',
+'alert-type' => 'success'
+);
+return Redirect()->back()->with($notification);
+return Redirect()->back()->with($notification)->withInput($request->only('email')); 
+<script>
+@if(Session::has('messege'))
+var type="{{Session::get('alert-type','info')}}"
+switch(type){
+case 'info':
+toastr.info("{{ Session::get('messege') }}");
+break;
+case 'success':
+toastr.success("{{ Session::get('messege') }}");
+break;
+case 'warning':
+toastr.warning("{{ Session::get('messege') }}");
+break;
+case 'error':
+toastr.error("{{ Session::get('messege') }}");
+break;
+}
+@endif
+</script>
+------------------------------------------------------------------------------------------------------
+Validation Toastr Message
+-------------------------------------------------------------------------------------------------------
+$validateData = $request->validate([
+'brand_name' => 'required|unique:brands',
+'brand_logo' => 'required',
+]);
+validation error
+<script>
+@if(count($errors) > 0)
+@foreach($errors->all() as $error)
+toastr.error("{{ $error }}");
+@endforeach
+@endif
+</script>

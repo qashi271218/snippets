@@ -1,0 +1,338 @@
+--------------------------------------------------------------------------------
+Stripe controller view
+--------------------------------------------------------------------------------
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Stripe Payment</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-6 mx-auto p-3" style="background: #eee;border-radius: 10px;">
+                    <div class="panel panel-default credit-card-box">
+                        <div class="panel-heading text-center">
+                            <h3>Payment Details</h3>
+                            <div>
+                                <img class="img-responsive pull-right" width="50" src="">
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            @if (Session::has('success'))
+                            <div class="alert alert-success text-center">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                                <p>{{ Session::get('success') }}</p><br>
+                            </div>
+                            @endif
+                            <br>
+                            <form role="form" action="{{ route('stripe.get_token') }}" method="post" class="require-validation" data-cc-on-file="false" data-stripe-publishable-key="{{ env('STRIPE_KEY') }}" id="payment-form">
+                                @csrf
+                                <input type="hidden" name="country" value="{{$country}}">
+                                <input type="hidden" name="state" value="{{$state}}">
+                                <input type="hidden" name="city" value="{{$city}}">
+                                <input type="hidden" name="postal_code" value="{{$postal_code}}">
+                                <div class='form-row row'>
+                                    <div class='col-xs-12 col-md-6 form-group required'>
+                                        <label class='control-label'>Name on Card</label>
+                                        <input class='form-control' size='4' type='text' minlength="3" required>
+                                    </div>
+                                    <div class='col-xs-12 col-md-6 form-group required'>
+                                        <label class='control-label'>Card Number</label>
+                                        <input autocomplete='off' class='form-control card-number' size='20' type='text' minlength="16" maxlength="16" required>
+                                    </div>
+                                </div>
+                                <div class='form-row row'>
+                                    <div class='col-xs-12 col-md-4 form-group cvc required'>
+                                        <label class='control-label'>CVC</label>
+                                        <input autocomplete='off' class='form-control card-cvc' placeholder='ex. 311' size='4' type='text' minlength="3" maxlength="3" required>
+                                    </div>
+                                    <div class='col-xs-12 col-md-4 form-group expiration required'>
+                                        <label class='control-label'>Expiration Month</label>
+                                        <input class='form-control card-expiry-month' placeholder='MM' size='2' type='text' minlength="2" maxlength="2" required>
+                                    </div>
+                                    <div class='col-xs-12 col-md-4 form-group expiration required'>
+                                        <label class='control-label'>Expiration Year</label>
+                                        <input class='form-control card-expiry-year' placeholder='YYYY' size='4' type='text' minlength="4" maxlength="4" required>
+                                    </div>
+                                </div>
+                                {{-- <div class='form-row row'>
+                                    <div class='col-md-12 error form-group hide'>
+                                        <div class='alert-danger alert'>Please correct the errors and try
+                                            again.
+                                        </div>
+                                    </div>
+                                </div> --}}
+                                <div class="form-row row">
+                                    <div class="col-xs-12 w-100">
+                                        <button class="btn btn-primary btn-block" type="submit">Pay Now</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type="text/javascript">
+$(function() {
+var $form = $(".require-validation");
+$('form.require-validation').bind('submit', function(e) {
+var $form = $(".require-validation"),
+inputSelector = ['input[type=email]', 'input[type=password]', 'input[type=text]', 'input[type=file]', 'textarea'].join(', '),
+$inputs = $form.find('.required').find(inputSelector),
+$errorMessage = $form.find('div.error'),
+valid = true;
+$errorMessage.addClass('hide');
+$('.has-error').removeClass('has-error');
+$inputs.each(function(i, el) {
+var $input = $(el);
+if ($input.val() === '') {
+$input.parent().addClass('has-error');
+$errorMessage.removeClass('hide');
+e.preventDefault();
+}
+});
+if (!$form.data('cc-on-file')) {
+e.preventDefault();
+Stripe.setPublishableKey($form.data('stripe-publishable-key'));
+Stripe.createToken({
+number: $('.card-number').val(),
+cvc: $('.card-cvc').val(),
+exp_month: $('.card-expiry-month').val(),
+exp_year: $('.card-expiry-year').val()
+}, stripeResponseHandler);
+}
+});
+function stripeResponseHandler(status, response) {
+if (response.error) {
+$('.error')
+.removeClass('hide')
+.find('.alert')
+.text(response.error.message);
+} else {
+/* token contains id, last4, and card type */
+var token = response['id'];
+$form.find('input[type=text]').empty();
+$form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
+$form.get(0).submit();
+}
+}
+});
+</script>
+--------------------------------------------------------------------------------
+Stripe payment controller
+--------------------------------------------------------------------------------
+\Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+$token = $_POST['stripeToken'];
+$customer = \Stripe\Customer::create([
+'name' => Auth::user()->name,
+'email' => Auth::user()->email,
+]);
+\Stripe\Customer::createSource(
+$customer->id,
+['source' => $request->stripeToken]
+);
+$charge = \Stripe\Charge::create([
+'shipping' => [
+'name' => Auth::user()->name,
+'address' => [
+'postal_code' => $request->postal_code,
+'city' => $request->city,
+'state' => $request->state,
+'country' => $request->country,
+],
+],
+'customer' => $customer->id,
+'amount' => $amount,
+'currency' => \App\Models\Currency::findOrFail(get_setting('system_default_currency'))->code,
+'description' => 'Payment',
+//'source' => $token,
+'metadata' => ['order_id' => uniqid()],
+]);
+--------------------------------------------------------------------------------
+Database
+--------------------------------------------------------------------------------
+laravel convert timestamp to date
+date('Y-m-d', strtotime($date));
+laravel convert date to timestamp
+date('Y-m-d H:i:s', strtotime($date));
+$records = Language::where(function ($q) {
+$q->where('is_default',1)
+->orWhere('is_default',0);})->get();
+{!! Form::open(array(
+'style' => 'display: inline-block;',
+'method' => 'DELETE',
+'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+'route' => ['internal_notifications.destroy', $internal_notification->id])) !!}
+{!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
+{!! Form::close() !!}
+-----------------------------------------------------------------------------
+Multiple image with preview and delete
+-----------------------------------------------------------------------------
+View file
+<div class="form-group">
+    <label>Upload Gallery Images</label>
+    <input type="file" name="gallery[]" id="images" class="form-control" multiple>
+    @if(isset($record) && $record)
+    @php
+    $gallery_images=DB::table('auctionimages')->where('auction_id',$record->id)->get();
+    @endphp
+    <div class="row" style="margin-top:5%;">
+        @foreach($gallery_images as $gallery_image)
+        <div class="col-md-2" style="margin-bottom:2%;">
+            <img src="{{asset('public/uploads/auctions/'.$gallery_image->filename)}}" style="max-width: 100%!important;width: 100%;">
+        </div>
+        @endforeach
+    </div>
+    @endif
+</div>
+script
+<script >
+$(document).ready(function() {
+$("#images").on("change", function(e) {
+var files = e.target.files,
+filesLength = files.length;
+for (var i = 0; i < filesLength; i++) {
+var f = files[i]
+var fileReader = new FileReader();
+fileReader.onload = (function(e) {
+var file = e.target;
+$("<span class=\"pip\">" +
+    "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
+    "<br/><span class=\"remove\">Remove</span>" +
+"</span>").insertAfter("#images");
+$(".remove").click(function(){
+$(this).parent(".pip").remove();
+});
+
+// Old code here
+/*$("<img></img>", {
+class: "imageThumb",
+src: e.target.result,
+title: file.name + " | Click to remove"
+}).insertAfter("#files").click(function(){$(this).remove();});*/
+
+});
+fileReader.readAsDataURL(f);
+}
+});
+});
+</script>
+Controller
+$this->validate($request, [
+'filename' => 'required',
+'filename.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+]);
+
+if($request->hasfile('filename'))
+{
+foreach($request->file('filename') as $image)
+{
+$name=$image->getClientOriginalName();
+$image->move(public_path().'/images/', $name);
+$data[] = $name;
+}
+}
+$form= new Form();
+$form->filename=json_encode($data);
+
+
+$form->save();
+-------------------------------------------------------------------------------------------
+if ($request->hasFile('gallery')) {
+$filename = $request->file('gallery');
+foreach($filename as $n => $file) {
+
+$filenames = $filename[$n]->getClientOriginalName();
+$fileName = $recordId.'_'.$filename[$n]->getClientOriginalName();
+
+$directory = AUCTION_IMAGES_PATH;
+
+$upload_success= $filename[$n]->move($directory, $fileName);
+$mime_type = File::mimeType($directory.$fileName);
+$img_upload = new AuctionImages();
+$img_upload->auction_id  = $recordId;
+$img_upload->filename    = $fileName;
+$img_upload->size        = $filename[$n]->getClientSize();
+$img_upload->type        = $mime_type;
+$img_upload->original_filename = $filenames;
+/*$img_upload->width       = 950;
+$img_upload->height      = 650;*/
+$img_upload->save();
+}
+}
+-------------------------------------------------------------------------------
+    
+------------------------------------------------------------------------------------------------
+    array multiple data save
+------------------------------------------------------------------------------------------------
+    
+    ------------------------------------------------------------------------------------------------
+    <body onload="javascript:submitonload();">
+        <form id="my_form" action="<?=$_SERVER['PHP_SELF'];?>" method="post">
+            <input type="hidden" name="ip_address" value="<?=(isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '');?>" />
+            <br />
+            <input type="submit" name="submit" value="Login" />
+        </form>
+        <script type="text/javascript">
+        function submitonload() {
+        document.getElementById('my_form').submit();
+        }
+        </script>
+    </body>
+    -----------------------------------------------------------------------------
+    <form name="myForm" id="myForm" target="_myFrame" action="test.php" method="POST">
+        <p>
+            <input name="test" value="test" />
+        </p>
+        <p>
+            <input type="submit" value="Submit" />
+        </p>
+    </form>
+    <script type="text/javascript">
+    window.onload=function(){
+    var auto = setTimeout(function(){ autoRefresh(); }, 100);
+    function submitform(){
+    alert('test');
+    document.forms["myForm"].submit();
+    }
+    function autoRefresh(){
+    clearTimeout(auto);
+    auto = setTimeout(function(){ submitform(); autoRefresh(); }, 10000);
+    }
+    }
+    </script>
+    -----------------------------------------------------------------------------
+    <script type="text/javascript">
+    if(sessionStorage.getItem('key'))
+    {
+    }
+    else
+    {
+    window.onload=function submitonload() {
+    sessionStorage.setItem('key', 'value');
+    document.getElementById('cidashboardform').submit();
+    }
+    }
+    </script>
+    -----------------------------------------------------------------------
+    
+    ------------------------------------------------------------
+    $lang=DB::table('tblstaff')->where('email',Auth::user()->email)->value('default_language');
+    if($lang=='english')
+    {
+    App::setLocale('en');
+    session()->put('locale', 'en');
+    }
+    elseif($lang!='english')
+    {
+    App::setLocale($lang);
+    session()->put('locale', $lang);
+    }
+    -----------------------------------------------------------------
+    

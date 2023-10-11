@@ -1,0 +1,26 @@
+1. $header_setting=HeaderSetting::first();
+if($file = $request->file('logo')) {
+if(isset($header_setting->logo))
+{
+unlink(public_path('website/backend/images/'). $header_setting->logo);
+}
+$name = time().hexdec(uniqid()).'.'.$file->getClientOriginalName();
+$file->move(public_path().'/website/backend/images/', $name);
+$input['logo'] = $name;
+}
+
+2. if($file = $request->file('thumbnail_img')) {
+            $name = $file->getClientOriginalName();
+            Image::make($file->getRealPath())->insert(public_path('images/logo.png'), 'bottom-left', 10, 10)->save('public/uploads/products/thumbnail/' . $name);
+            $product->thumbnail_img =('uploads/products/thumbnail/' . $name);
+}
+        
+3. if ($image = $request->file('banner')) {
+            if(isset($product_category->banner))
+            {
+            unlink(public_path() ."/images/banner/" .$product_category->banner);
+            }
+          $name = hexdec(uniqid()).'.'.$image->extension();
+          Image::make($image->getRealPath())->resize(1920, 300)->save('public/images/banner/' . $name);
+            $input['banner']=$name;
+}

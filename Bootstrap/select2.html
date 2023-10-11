@@ -1,0 +1,54 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
+
+.select2-container--default .select2-selection--single {
+min-height: 50px!important;
+    border: 1px solid var(--secondary-color);
+    padding: 10px;
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 3px;
+}
+.select2-container--default .select2-selection--single .select2-selection__placeholder {
+    color:#000!important;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    top:32px!important;
+}
+.select2-container--default .select2-selection--single .select2-selection__clear {
+    display:none;
+}
+
+.select2-container--default .select2-selection--multiple {
+min-height: 50px!important;
+    border: 1px solid var(--secondary-color);
+    padding: 10px;
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 3px;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__placeholder {
+    color:#000!important;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__clear {
+    display:none;
+}
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script>
+$("#single_select").select2({
+allowClear: true
+});
+$("#multiple").select2({
+placeholder: "Select a programming language",
+allowClear: true
+});
+</script>
+
+
+<div class="form-group">
+<select id="single_select" name="sports_interested_in" class="js-states form-control" required>
+<option value="" selected disabled>Sports Interested In*</option>
+<option value="cricket">Cricket</option>
+<option value="football">Football</option>
+</select>

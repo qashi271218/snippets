@@ -1,0 +1,21 @@
+1. DB::table('course_enrolleds')->where('group_id',$request->group_id)->select('user_id')->distinct()->get();
+
+2. DB::table('rooms')->where('user_id',Auth::user()->id)->whereNotNull('preferred')->count();
+
+3. DB::table('laravel_permission')->distinct()->select('feature')->groupBy('feature')->get();
+
+4. DB::table('categories')->where('created_at', '>=',\Carbon\Carbon::now()->subMinutes(20))->count();
+
+5. $product->product_code =substr($product->name, 0, 2).'-'.mt_rand(1000000, 9999999);
+
+6. DB::table('products')->where('created_at', '>=', \Carbon\Carbon::now()->subHour())->count();
+
+7. DB::table('rooms')->where('name',$request->property_to_exchange)->select('user_id')->groupBy('user_id')->get();
+
+8. DB::table('rooms')->where('name',$request->property_to_exchange)->select('id')->groupBy('id')->get();
+
+9. CREATE TABLE new_table LIKE old_table;
+
+10. UPDATE productsSET country_id = 99 WHERE country_id IS NULL
+
+11. $input = request()->except(['_token']);

@@ -1,0 +1,384 @@
+-------------------------------------------------------------------------------------------------------------
+All ajax request  and modal loading icon
+-------------------------------------------------------------------------------------------------------------
+  <div class="loadingmessage" style="position: absolute;top: 35%;left: 50%;z-index: 999;display:none;">
+  <img src='https://media.tenor.com/YPOStjIfQ2IAAAAM/loading-waiting.gif'/>
+</div>
+
+<script>
+    $(document).ajaxStart(function () {
+  $('.loadingmessage').show();
+});
+$(document).ajaxStop(function () {
+  $('.loadingmessage').hide();
+});
+</script>
+
+<script>
+    $('[data-toggle]').click(function() {
+          $(".loadingmessage").show().delay( 1000 ).hide(0)
+});
+</script>
+
+$(".preloader").show().delay(12000).fadeOut();
+
+-------------------------------------------------------------------------------------------------------------
+Get input field value
+-------------------------------------------------------------------------------------------------------------
+<script>
+    $('.row').on('input','.prc',function(){
+        var mrp=$("#mrp").val();
+        var selling=$("#selling").val();
+        var totalSum=0;
+        $('.row .prc').each(function()
+        {
+            var inputVal=$(this).val();
+            if($.isNumeric(inputVal))
+            {
+                totalSum=((mrp-selling)/mrp*100).toFixed(2);
+            }
+        });
+        $('#totaldiscount').val(totalSum,2);
+    });
+</script>
+
+----------------------------------------------------------------------------------------------------------------
+Get Input length and showing message
+----------------------------------------------------------------------------------------------------------------
+<script>
+var minLength = 6;
+var maxLength =6;
+$(document).ready(function(){
+    $('#chkPincode').on('keydown keyup change', function(){
+        var char = $(this).val();
+        var charLength = $(this).val().length;
+        if(charLength < minLength){
+            $(".check_availability").css("visibility", "hidden"); 
+        }else if(charLength > maxLength){
+            $(".check_availability").css("visibility", "hidden"); 
+            $(this).val(char.substring(0, maxLength));
+        }else{
+            $(".check_availability").css("visibility", "visible"); 
+            }
+    });
+});
+</script>
+
+----------------------------------------------------------------------------------------------------------------
+Get Input type number last field value
+----------------------------------------------------------------------------------------------------------------
+<script>
+$(document).ready(function(){
+        $('#result').on('click', function(){
+            var arrText= new Array();
+$('input[type=number]:last').each(function(){
+    arrText.push($(this).val());
+})
+if(arrText>200)
+{
+}
+else
+{
+  alert('for grocery you hve to add minimum 500 rupees product to avoid shipping cost'); 
+}
+        });
+});
+
+</script>
+
+----------------------------------------------------------------------------------------------------------------
+Check input field checked or not
+----------------------------------------------------------------------------------------------------------------
+<script>
+    $(document).ready(function(){
+        $('#exchangeable_listings').change(function() {
+        if($(this).is(":checked")) {
+}
+});
+});
+</script>
+
+-------------------------------------------------------------------------------------------------------------
+Disable right click on image
+-------------------------------------------------------------------------------------------------------------
+<script>
+$(document).ready(function() {
+    $('img').bind('contextmenu', function(e) {
+    return false;
+}); 
+$('img').on('dragstart', function(event) { event.preventDefault(); });
+});
+</script>
+
+
+----------------------------------------------------------------------------------------------------------------
+pass selected value to selectbox using jquery
+----------------------------------------------------------------------------------------------------------------
+<script>
+    var country=$(this).data('country');
+    $('#edit_shipping_charge_country > option[value="'+ country +'"]').attr('selected',true);
+</script>
+
+----------------------------------------------------------------------------------------------------------------
+Ajax GET request using select box 
+----------------------------------------------------------------------------------------------------------------
+<script>
+    $(document).ready(function(e) {
+        var id=$('#hidden').val();
+        $('select[name="preferred"]').on('change', function() {
+                var preferred = $(this).val();
+                $.ajax({
+                    type:'get',
+                    url: '/preferred/location/'+id,
+                    data:{preferred:preferred},
+                    success:function(data) {
+                        console.log(data);
+                        }
+                });
+        });
+});
+</script>
+
+----------------------------------------------------------------------------------------------------------------
+Ajax POST request using select box 
+----------------------------------------------------------------------------------------------------------------
+<script>
+    $(document).ready(function(){
+    $(".search").keyup(function(){
+    var value=$(this).val();
+    if(value.length !== 0)
+    {
+    $.ajaxSetup({
+    headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+    });
+    $.ajax({
+    type:'POST',
+    url:'{{route('location.ajax.search')}}',
+    data:{value:value},
+    success:function(data){
+    if(data!="")
+    {
+    $('#result').html(data);
+    }
+    else
+    {
+    $('#result').text('no data found');
+    }
+    }
+    });
+}
+});
+});
+</script>
+
+----------------------------------------------------------------------------------------------------------------
+Get image path using jquery
+----------------------------------------------------------------------------------------------------------------
+<script>
+	img_url = 'https://bozzevents.com/public/images/sku/';
+    $('.mainimage').prop('src', img_url+data);
+</script>
+
+----------------------------------------------------------------------------------------------------------------
+Number and space validation
+----------------------------------------------------------------------------------------------------------------
+<script>
+    $(document).ready(function() {
+        $('#telephone_number').on('keyup',function() {
+            var hasSpace = $('#telephone_number').val().indexOf('-')>=0;
+            if(hasSpace || isNaN($('#telephone_number').val())) {
+                $('#number_error').show();
+                $('#number_error').text('Please enter numbers only.Special characters and spaces are not allowed');
+            }
+            else{
+                $('#number_error').hide();
+            }
+        });
+    });
+</script>
+
+----------------------------------------------------------------------------------------------------------------
+Settimeout to hide
+----------------------------------------------------------------------------------------------------------------
+<script>
+jQuery(function() {
+    setTimeout(function() {
+    jQuery("#pum-1066").show(),10000});
+});
+</script>
+
+---------------------------------------------------------------------------------------------------------
+Get difference in year
+---------------------------------------------------------------------------------------------------------
+<script>
+    $('#date_of_birth').change(function() {
+        var date1=new Date($(this).val());
+        var date2=new Date();
+        var milli_secs = date1.getTime() - date2.getTime();
+             
+            // Convert the milli seconds to Days 
+            var days = (milli_secs) / (1000 * 3600 * 24)/365;
+            var result=Math.round(Math.abs(days));
+        $('#age').val(result);
+    });
+</script>
+
+
+----------------------------------------------------------------------------------------------------------------
+Google translate 
+----------------------------------------------------------------------------------------------------------------
+<script>
+        function googleTranslateElementInit() {
+          new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'ar,en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, multilanguagePage: true, autoDisplay: false }, 'google_translate_element');
+            $('.goog-te-menu-value').on('DOMSubtreeModified', 'span', function(){
+                   language = $(".goog-te-menu-value span").html();
+
+                    if (language == "Arabic"){
+                        $('#theContent').css('direction', 'rtl');
+                    }
+                    else{
+                        $('#theContent').css('direction', 'ltr');
+                    };
+                });
+        };
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+    //to get currently selected language
+    window.setInterval(function(){
+    lang = $("select.goog-te-combo option:selected").val();
+    $('#current_language').val(lang);
+    },5000);
+    </script>
+
+----------------------------------------------------------------------------------------------------------------
+Sweetalert form submission
+----------------------------------------------------------------------------------------------------------------
+<script>
+	             Swal.fire({
+  title: 'Do you want to proceed the transaction',
+  showCancelButton: true,
+  confirmButtonText: `Proceed`,
+}).then((result) => {
+  /* Read more about isConfirmed, isDenied below */
+  if (result.isConfirmed) {
+                  $('#loadingmessage').show();
+      $.ajax({
+                         headers: {
+                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                         },
+                         url: "{{ route('add-card') }}",
+                         type: "POST",
+                         data: {nonce,amount},
+                         success: function(data){
+                             alert('data', data);
+                         },
+                         error: function (xhr, status, error) {
+                             $('#loadingmessage').hide();
+                             Swal.fire('Transaction successfully completed!', '', 'success')
+                             location.replace('https://www.ebahamas.com/');
+                         }
+                     });
+  } else if (result.isDenied) {
+    Swal.fire('Changes are not saved', '', 'info')
+  }
+})
+</script>
+
+----------------------------------------------------------------------------------------------------------------
+Scroll
+----------------------------------------------------------------------------------------------------------------
+1. <script>
+    $("#main-nav a").on('click', function (event) {
+      if (this.hash !== "") {
+        event.preventDefault();
+
+        const hash = this.hash;
+
+        $('html, body').animate({
+          scrollTop: $(hash).offset().top -90
+        }, 800, function () {
+
+          //window.location.hash = hash;
+          return false;
+        });
+      }
+    });
+</script>
+
+2. <script>
+jQuery(document).on('click', '.wc-tabs li a', function(){ 
+//jQuery('.myfixed li a').click(function() {
+    
+	var scrllme=jQuery(this).attr("href");
+    jQuery('html, body').animate({
+        scrollTop: jQuery(scrllme).offset().top-50
+    }, 2000);
+    return false;
+
+  
+});
+</script>
+
+3. <script>
+jQuery(window).scroll(function() {
+    var windscroll = jQuery(window).scrollTop();
+    if (windscroll >= 100) {
+        jQuery('.woocommerce-Tabs-panel').each(function(i) {
+            if (jQuery(this).position().top <= windscroll - 100) {
+                jQuery('#mysticky-nav .wc-tabs li a.activee').removeClass('activee');
+				jQuery('#mysticky-nav .wc-tabs li.active').removeClass('activee');
+                jQuery('#mysticky-nav .wc-tabs li a').eq(i).addClass('activee');
+            }
+        });
+
+    } 
+
+}).scroll();
+</script>
+
+<style>
+		.activee
+		{
+			color:#fb641b!important;
+			font-weight:bold!important;
+			border-bottom:4px solid #ff9f00!important
+		}
+		.sticky
+		{
+			position:fixed!important;
+			top:0!important;
+    z-index: 9999;
+    background-color: yellow;
+    width: 100%!important;
+    margin-left: 0!important;
+		}
+		.notsticky
+		{
+			position:relative!important;
+		}
+	@media (min-width: 780px) {
+	    #mysticky-nav {
+	        height:40px;
+	    }
+	}
+	</style>
+
+4. <script>
+	jQuery(document).ready(function() {
+		var top = (jQuery('#rtn-deals header h2.h1').offset()|| { "top": NaN }).top - 240;
+  jQuery(window).scroll(function() {
+var windowTop = jQuery(window).scrollTop();
+    if (top < windowTop) {
+      jQuery('#rtn-deals header h2.h1').addClass('sticky');
+		jQuery('#masthead').hide();
+    } else {
+				jQuery('#masthead').show();
+      jQuery('#rtn-deals header h2.h1').removeClass('sticky');
+    }
+  });
+});
+</script>

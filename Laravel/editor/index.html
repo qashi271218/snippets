@@ -1,0 +1,36 @@
+<script src="https://cdn.tiny.cloud/1/6vikn5dxag0od2bhhncxvr5h2th318ugtn6emt5qeixq18h8/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="{{asset('public/website/backend/js/custom.js')}}"></script>
+<script>
+   $(document).on('focusin', function(e) {
+   if ($(e.target).closest(".tox-tinymce, .tox-tinymce-aux, .moxman-window, .tam-assetmanager-root").length) {
+      e.stopImmediatePropagation();
+   }
+});
+</script>
+<script>
+    tinymce.init({
+      selector: '.textarea',
+      plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+      toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+    });
+  </script>
+
+
+  <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+<script>
+                CKEDITOR.replaceAll( 'textarea' );
+            </script>
+            <script>
+     //The final solution code for all bugs ckeditor in twitter bootstrap3' modal
+     $.fn.modal.Constructor.prototype.enforceFocus = function() {
+             var $modalElement = this.$element;
+             $(document).on('focusin.modal',function(e) {
+                     var $parent = $(e.target.parentNode);
+                     if ($modalElement[0] !== e.target
+                                     && !$modalElement.has(e.target).length
+                                     && $(e.target).parentsUntil('*[role="dialog"]').length === 0) {
+                             $modalElement.focus();
+                     }
+             });
+     };
+</script>

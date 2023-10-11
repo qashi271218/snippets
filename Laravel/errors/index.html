@@ -1,0 +1,13 @@
+-------------------------------------------------------------------------------------------------------------
+1. If textarea design not coming in request
+-------------------------------------------------------------------------------------------------------------
+solution: like in readingapp.usasoftware.xyz/app/Http/Middleware/XSSverification.php
+Check middleware and comment line
+
+public function handle($request, Closure $next)
+    {
+        $input = $request->all();
+        // array_walk_recursive($input, function(&$input) {
+        //     $input = strip_tags($input);
+        // });
+    }

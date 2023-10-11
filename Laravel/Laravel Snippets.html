@@ -1,0 +1,176 @@
+------------------------------------------------------------------------------------------------------------
+Basic
+------------------------------------------------------------------------------------------------------------
+1. \App\Models\Product::where('tags','LIKE',"%$detailedProduct->tags%")
+
+2. $query=http_build_query($request->query());
+
+3. catch(\Exception $e){}
+
+4. 'debug_blacklist' => [
+   '_COOKIE' => array_keys($_COOKIE),
+   '_SERVER' => array_keys($_SERVER),
+   '_ENV' => array_keys($_ENV),
+],
+
+5. base64_encode($athlete->athlete->user_id)
+   base64_decode($id)
+
+6. optional($venue_owner)->address
+
+<script>
+    $(function () {
+    //bootstrap WYSIHTML5 - text editor
+    $(".textarea").wysihtml5();
+  });
+</script>
+
+---------------------------------------------------------------------------------------------------------------
+Password
+---------------------------------------------------------------------------------------------------------------
+1. test1234-$2y$10$sU3zA5ZQp0pTGLUQp7fpEeavnDIfBMsed9TdehRgIW1YcR7WHu8V2
+   $2y$10$VxUIbnLcxQRUbs81Q9rSJucHMcfp80mcsLrdSHnue2MeId8xGj04O
+
+---------------------------------------------------------------------------------------------------------------
+Form Validation
+---------------------------------------------------------------------------------------------------------------
+1. 'title'=>'unique:pages,title,'.$id,
+
+2. 'logo' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
+
+3. 'password'=>'nullable|confirmed|min:8',
+
+try {
+Mail::send('emails.contactus', $data, function($message) use ($to_name, $to_email, $subjects) {
+    $message->to($to_email, $to_name)->subject('Contact : '.$subjects);
+});
+}
+catch(\Exception $e){
+}
+
+'email' => 'required|email|exists:users,email',
+
+----------------------------------------------------------------------------------------------------------------
+Input field
+----------------------------------------------------------------------------------------------------------------
+1. <input type="radio" name="radio-button" onclick='window.location.assign("{{route('home')}}")'/><span>Available</span>
+
+2. <option value="{{$row->display_name}}" <?php if($row->display_name == $cityselected->preferred) echo "selected"; ?>>{{$row->display_name}}</option>   
+
+3. <a onclick="return confirm('Are you sure?')" href="#"></a>
+
+4. <select name="forma" onchange="location = this.value;">
+ <option value="Home.php">Home</option>
+ <option value="Contact.php">Contact</option>
+ <option value="Sitemap.php">Sitemap</option>
+</select>
+
+----------------------------------------------------------------------------------------------------------------
+Get Url String
+----------------------------------------------------------------------------------------------------------------
+1. url()->current()
+
+2. Request::is('it-services')
+
+3. (Request::path() == '/post-title')
+
+4. (Request::segment(2) == 'post')
+
+5. (str_contains(Request::fullUrl(), 'some-string'))
+
+6. (Request::url() == 'somestring')
+
+----------------------------------------------------------------------------------------------------------------
+Conversion of integer and string
+----------------------------------------------------------------------------------------------------------------
+1. $final=number_format((floatval($product->mrp_price-$product->unit_price)/floatval($product->mrp_price))*100,2);
+
+2. Convert int to string
+$cat_id=strval($category_id);
+
+------------------------------------------------------------------------------------------------------------
+Load css with public 
+------------------------------------------------------------------------------------------------------------
+Now, the css and js files were not loading properly and as per Sean Perkins answer, i opened vendor/laravel/framework/src/Illuminate/Routing/UrlGenerator.php and changed
+
+public function asset($path, $secure = null)
+{
+    if ($this->isValidUrl($path)) {
+        return $path;
+    }
+
+    $root = $this->getRootUrl($this->getScheme($secure));
+    return $this->removeIndex($root).'/'.trim($path, '/');
+}
+to
+
+public function asset($path, $secure = null)
+{
+    if ($this->isValidUrl($path)) {
+        return $path;
+    }
+
+    $root = $this->getRootUrl($this->getScheme($secure));
+    return $this->removeIndex($root).'/public/'.trim($path, '/');
+}
+
+------------------------------------------------------------------------------------------------------------
+Get all pdf inside storage folder
+------------------------------------------------------------------------------------------------------------
+
+use Illuminate\Support\Facades\File;
+
+$storage = File::allFiles(storage_path('pdfs'));
+
+foreach ($storage as $file) {
+    echo $file->getFilename();
+}
+
+// test.pdf
+
+<script>
+        $(document).ready(function(){
+            $('.express_delivery').click(function(){
+                $('#express_stripe_value').val(1);
+                var value=$('#express_shipping_amount').val();
+                var value1= $(".dev").html().split("€").join("");
+                var value2=$('#express_shipping_amount').val().split("€").join("");
+                var value3=$('.original_price').html().split("€").join("");
+                var value4=$('.subtotal_amount').html().split("€").join("");
+                var sum=Number(value1) + Number(value2);
+                var total=sum + Number(value4);
+                $('.dev').text('€' + sum + '.00');
+                $('.original_price').text('€' + total + '.00');
+               Swal.fire('Express delivery ' + value);
+               $('.express_delivery').prop("disabled", true);
+               $('.normal_delivery').prop("disabled", false);
+ 
+            })
+        });
+</script>
+
+<script>
+        $(document).ready(function(){
+            $('.normal_delivery').click(function(){
+                $('#express_stripe_value').val(0);
+                var value=$('#express_shipping_amount').val();
+                var value1= $(".dev").html().split("€").join("");
+                var value2=$('#express_shipping_amount').val().split("€").join("");
+                var value3=$('.original_price').html().split("€").join("");
+                var value4=$('.subtotal_amount').html().split("€").join("");
+                var sum=Number(value1) - Number(value2);
+                var total=sum + Number(value4);
+                $('.dev').text('€' + sum + '.00');
+                $('.original_price').text('€' + total + '.00');
+                $('.express_delivery').prop("disabled", false);
+                $('.normal_delivery').prop("disabled", true);
+            })
+        });
+</script>
+
+
+public function getCreatedAtAttribute($value) {
+    return \Carbon\Carbon::parse($value)->format('d-m-Y');
+}
+
+

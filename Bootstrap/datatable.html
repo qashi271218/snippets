@@ -1,0 +1,107 @@
+<head>
+  <meta charset="UTF-8">
+    <meta name="description" content="Add a loading spinner to Datatables without AJAX" />
+    <title>Bootstrap 4 Responsive Datatable with Loading Spinner</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.bootstrap4.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
+  <style>
+    #containerexample {display: none}
+#loadercontainer{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+  </style>
+</head>
+<body>
+  <div id="containerexample" class="m-5">
+  <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+        <thead>
+          <tr>
+            <th>Item Type</th>
+            <th>Order Priority</th>
+            <th>Order Date</th>
+            <th>Order ID</th>
+            <th>Ship Date</th>
+            <th>Item Type</th>
+            <th>Order Priority</th>
+            <th>Order Date</th>
+            <th>Order ID</th>
+            <th>Ship Date</th>
+            <th>Item Type</th>
+            <th>Order Priority</th>
+            <th>Order Date</th>
+            <th>Order ID</th>
+            <th>Ship Date</th>
+            <th>Item Type</th>
+            <th>Order Priority</th>
+            <th>Order Date</th>
+            <th>Order ID</th>
+            <th>Ship Date</th>
+          </tr>
+        </thead>
+
+<tbody>
+  <tr>
+    <td>Baby Food</td>
+    <td>M</td>
+    <td>12/20/13</td>
+    <td>957081544</td>
+    <td>1/11/14</td>
+    <td>Baby Food</td>
+    <td>M</td>
+    <td>12/20/13</td>
+    <td>957081544</td>
+    <td>1/11/14</td>
+     <td>Baby Food</td>
+    <td>M</td>
+    <td>12/20/13</td>
+    <td>957081544</td>
+    <td>1/11/14</td>
+    <td>Baby Food</td>
+    <td>M</td>
+    <td>12/20/13</td>
+    <td>957081544</td>
+    <td>1/11/14</td>
+  </tr>
+        </tbody>
+    </table>
+  </div>
+  <div id="loadercontainer">
+  <div class="d-flex justify-content-center text-secondary" id="loader">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+  </div>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.bootstrap4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
+ <script>
+    $(document).ready(function() {
+      var table = $('#example').on( 'draw.dt', function () {
+    $("#containerexample").attr("id", "container"); $("#loadercontainer").css("display","none");
+  } ).DataTable( {
+          lengthChange: true,
+          buttons: [ 'excel', 'pdf', 'colvis' ],
+            "scrollX": true,
+            "paging": true,
+            "order": [[ 3, "desc" ]]
+      } );
+   
+      table.buttons().container()
+          .appendTo( '#example_wrapper .col-md-6:eq(0)' );
+  } );
+ </script>
+</body>
+</html>

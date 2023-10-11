@@ -1,0 +1,14 @@
+1. Route::group(['prefix' => 'online/test/series','as'=>'online.test.series.', 'middleware' => ['auth']], function () {});
+
+2. Route::middleware(['web', 'auth'])->prefix('association')->as('association.')->namespace($this->namespace)->group(base_path('routes/association.php'));
+
+3. <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">Logout</a>    
+<form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
+    {{ csrf_field() }}
+</form>
+
+4. Route::fallback(function () {return view("errors/404"); });
+
+5. Route::get('detail/{id}', function ($id) {
+    return view('home.blog_detail', ['slug' => $id]);
+    })->name('blog.detail');

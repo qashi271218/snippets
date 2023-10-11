@@ -1,0 +1,57 @@
+helper.php
+function sendMail($to,$from,$maildata,$mail_subject){
+    $data['mail_body'] = $maildata;
+    \Mail::send('Admin.mail_template.mail_template',$data, function($message) use($to,$from,$maildata,$mail_subject){
+         $message->to($to)->subject($mail_subject);
+         $message->from($from,env('APP_NAME'));
+     });
+}
+
+
+controller.php
+
+public function forgotPassword(Request $request){
+
+        $user = User::where('email',$request->email)->first();
+
+        if ($user == "") {
+            return response()->json([ 'status' => false ,'message' => trans("messages.no_user_with_email" )]);  
+        }
+
+        $route = $this->OTPMessageSend($user->email ,$user->user_id);
+        
+        if($route == true){
+            return \Response::json([
+                'status'  => true,
+                'message' => 'OTP has been sent successfully to your email address.'
+            ]);
+        }
+
+        return response()->json([ 'status'  => true, 'message' => trans('messages.password_sent')]);
+    }
+
+    public function OTPMessageSend($email,$user_id){
+        $user = User::where('email',$email)->first();
+        $OTP_msg = substr(str_shuffle("0123456789"), 0, 4);          //generate new OTP message
+
+        $verification_data = VerificationCode::where('user_id',$user->id)->get();
+        $data = array(
+            'user_id' => $user->id,
+            'code' => $OTP_msg,
+            'date'=>date('Y-m-d'),
+            'time'=>date('H:i:s')
+        );
+
+        if(count($verification_data) != 0){
+            VerificationCode::where('user_id',$user->id)->delete();
+        }
+
+        VerificationCode::create($data);
+        $to = $user->email;
+        $from = env('MAIL_USERNAME');
+        $name = $user->name;
+        $mail_data = "<p><strong>Your verification OTP&nbsp; is </strong>".$data['code']."</p>\n<p>Thank you for using our application!</p>\n<p>Regards,<br />". env('APP_NAME') ."</p>";
+        $mail_subject = "Your Password Verification Code | ".env('APP_NAME');
+        sendMail($to,$from,$mail_data,$mail_subject);
+        return true;
+    }

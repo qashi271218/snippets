@@ -1,0 +1,34 @@
+.modal.website-popup{
+    visibility: hidden;
+    animation: qasim 1s;
+    animation-delay: 60s;
+    animation-fill-mode: forwards;
+}
+@keyframes qasim {
+    from { visibility: hidden; }
+    to { visibility: visible; }
+}
+
+div[data-aoraeditor-title="HomePafe FAQ Section"]
+
+div[data-aoraeditor-title="HomePage Instructor Section"] + div .jumbotron h3 {
+      animation: blinker 2s linear infinite;
+}
+@keyframes blinker {
+    50% {
+    opacity: 0;
+  }
+}
+div[data-aoraeditor-title="HomePage Instructor Section"] + div .jumbotron h3:before {
+    content: '';
+    clear: both;
+    height: 64px;
+    width: 81px;
+    display: inline-block;
+    background:url(https://media.tenor.com/KZBW12k5hvkAAAAM/hello-mic.gif);
+    background-size:100%;
+    background-repeat:no-repeat;
+    position: relative;
+    top: 25px;
+    left: -6px;
+}

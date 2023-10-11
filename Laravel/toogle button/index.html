@@ -1,0 +1,35 @@
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+<input type="checkbox" checked data-toggle="toggle">
+
+                  <td><input type="checkbox" data-toggle="toggle" onchange="update_page_status(this)" value="{{ $page->id }}" <?php if ($page->status == 1) echo "checked"; ?>></td>
+
+
+                  <script>
+   function update_page_status(el){
+            if(el.checked){
+                var status = 1;
+            }
+            else{
+                var status = 0;
+            }
+            $.post('{{ route('admin.update_page_status') }}', {_token:'{{ csrf_token() }}', id:el.value, status:status}, function(data){
+                if(data == 1){
+                }
+                else{
+                }
+            });
+        } 
+</script>
+
+Route::post('/page/status/update',[WebsiteSetupController::class,'update_page_status'])->name('update_page_status');
+
+
+public function update_page_status(Request $request)
+    {
+        $page = Page::findOrFail($request->id);
+        $page->status = $request->status;
+        $page->save();
+        return 1;
+    }

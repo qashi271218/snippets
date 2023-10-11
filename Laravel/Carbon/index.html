@@ -1,0 +1,16 @@
+1. DB::table('reservation')->where('id',$result->id)->where('checkout', '<', \Carbon\Carbon::now()->subDays(120))->first();
+
+2. Carbon::createFromFormat('d-m-Y', $request->message_checkin)->format('Y-m-d');
+
+3. $createdAt = \Carbon\Carbon::parse($result->checkin)->addDays(2);
+$checkin= $createdAt->format('Y-m-d');
+
+4. $from = \Carbon\Carbon::createFromFormat('Y-m-d',$ticket->event_on);
+$today=date('Y-m-d');
+$diff_in_days = $from->diffInDays($today);
+
+5. DB::table('categories')->where('created_at', '>=',\Carbon\Carbon::now()->subMinutes(20))->count();
+
+6. @php
+      $date=Carbon\Carbon::parse($event->end)->format('F j, Y');
+      @endphp
