@@ -1,0 +1,25 @@
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+
+
+public function yourFunction()
+{
+    try {
+        $client = new Client();
+        $guzzleResponse = $client->get(
+                'http://localhost:1080/busy/public/api/material', [
+                'headers' => [
+                    'APP_KEY'=>'QAWLhIK2p5'
+                ],
+            ]);
+        if ($guzzleResponse->getStatusCode() == 200) {
+            $response = json_decode($guzzleResponse->getBody(),true);
+        }
+        
+    } catch (RequestException $e) {
+        // you can catch here 400 response errors and 500 response errors
+        // see this https://stackoverflow.com/questions/25040436/guzzle-handle-400-bad-request/25040600
+    } catch(Exception $e){
+        //other errors 
+    }
+}
